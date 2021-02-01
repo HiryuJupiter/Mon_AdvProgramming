@@ -17,23 +17,27 @@ namespace Sorting
         //Index is the numer of the node
         public int Index => index;
 
-        public void Setup(int _index, float _height, Color _color)
+        public void Initialize(int _index, float _height, Color _color)
         {
+            //Cache
             index = _index;
-
-            layout = gameObject.GetComponent<LayoutElement>();
-            layout.preferredHeight = _height;
-
-            renderer = gameObject.GetComponent<Image>();
-            renderer.color = _color;
             startColor = _color;
+
+            //References
+            layout = gameObject.GetComponent<LayoutElement>();
+            renderer = gameObject.GetComponent<Image>();
+
+            //Initialize attributes
+            SetHeight(_height);
+            SetColor(_color);
         }
 
-        
-        //Set the node to be the "active" or "highlighted" node.
         public void SetSelected(bool _isSelected)
         {
-            renderer.color = _isSelected ? selectedColor : startColor;
+            SetColor(_isSelected ? selectedColor : startColor);
         }
+
+        void SetHeight (float _height) => layout.preferredHeight = _height;
+        void SetColor (Color _color) => renderer.color = _color;
     }
 }

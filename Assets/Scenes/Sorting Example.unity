@@ -96,6 +96,7 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
+    m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
   m_UseShadowmask: 1
 --- !u!196 &4
@@ -399,8 +400,9 @@ Light:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 705507993}
   m_Enabled: 1
-  serializedVersion: 9
+  serializedVersion: 10
   m_Type: 1
+  m_Shape: 0
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
   m_Intensity: 1
   m_Range: 10
@@ -607,7 +609,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f4e5c65b9d6dbc47afa756f8b68b60f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  generator: {fileID: 1586799603}
+  generator: {fileID: 0}
 --- !u!1 &961279363
 GameObject:
   m_ObjectHideFlags: 0
@@ -660,7 +662,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0e8ae94b07eadd48820b04ea562cc2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  generator: {fileID: 1586799603}
+  generator: {fileID: 0}
 --- !u!114 &961279366
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1053,7 +1055,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2a937108ccc5d94b9ca14d864576e63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  generator: {fileID: 1586799603}
+  generator: {fileID: 0}
 --- !u!1 &1225933895
 GameObject:
   m_ObjectHideFlags: 0
@@ -1166,10 +1168,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1586799601}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4087425e474a5b748be6ccfa93858bae, type: 3}
+  m_Script: {fileID: 11500000, guid: 5aa4af8eb40f5864187cd2233063160b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nodeCount: 53
+  canvasTransform: {fileID: 374566336}
+  prefab: {fileID: 2004307850467151956, guid: b24094e1c6b9d654888c878c56ef5ba0, type: 3}
+  startColor: {r: 1, g: 0, b: 0, a: 1}
+  endColor: {r: 0, g: 1, b: 0, a: 1}
 --- !u!114 &1586799604
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1179,13 +1184,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1586799601}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54702594f182283488784e11f5208dbf, type: 3}
+  m_Script: {fileID: 11500000, guid: 283d45e466aee6b479277909fcd1739c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvasTransform: {fileID: 374566336}
-  prefab: {fileID: 2004307850467151956, guid: b24094e1c6b9d654888c878c56ef5ba0, type: 3}
-  startColor: {r: 1, g: 0.406206, b: 0, a: 1}
-  endColor: {r: 0, g: 1, b: 0.7524569, a: 1}
+  nodeCount: 80
 --- !u!114 &1586799605
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1359,7 +1361,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1586799603}
+      - m_Target: {fileID: 1586799604}
         m_MethodName: ShuffleNodes
         m_Mode: 1
         m_Arguments:

@@ -12,11 +12,7 @@ namespace Sorting
 
         public void RunSorter()
         {
-            if(!generator.IsShuffled)
-                return;
-
             nodes = generator.Nodes;
-
             StartCoroutine(Sort());
         }
 
