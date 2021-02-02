@@ -7,20 +7,19 @@ namespace Sorting
     [RequireComponent(typeof(LayoutElement), typeof(Image))]
     public class Node : MonoBehaviour
     {
-        private int index = 0;
         private LayoutElement layout;
         private new Image renderer;
 
         private Color startColor;
         private Color selectedColor = Color.blue;
 
-        //Index is the numer of the node
-        public int Index => index;
+        //Index is the position of the node in the perfect sequence 
+        public int Value { get; private set; }
 
         public void Initialize(int _index, float _height, Color _color)
         {
             //Cache
-            index = _index;
+            Value = _index;
             startColor = _color;
 
             //References

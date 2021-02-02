@@ -31,7 +31,7 @@ namespace Sorting
                 for (int j = i + 1; j < nodeCount; j++)
                 {
                     //Compare this index to the current smallest index item
-                    if (nodes[j].Index < nodes[smallest].Index)
+                    if (nodes[j].Value < nodes[smallest].Value)
                     {
                         //Swap thye element
                         //Store the next element in a temp variable

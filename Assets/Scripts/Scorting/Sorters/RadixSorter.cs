@@ -40,7 +40,7 @@ namespace Sorting
                     //Determine if the bit shifted is above 0
                     //If it is above 0, it means there is a number
                     //e.g. shifting 2 << 1 = 0. Shifting 12 << 1 becaues we're in the next digit.
-                    bool move = (nodes[i].Index << shift) >= 0; 
+                    bool move = (nodes[i].Value << shift) >= 0; 
 
                     if (shift == 0 ? !move : move)
                     {

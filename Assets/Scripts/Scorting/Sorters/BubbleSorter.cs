@@ -23,7 +23,7 @@ namespace Sorting
                 for (int j = 0; j <= nodeCount - 2; j++)
                 {
                     //If the current is a number greater than the one after?
-                    if (nodes[j].Index > nodes[j + 1].Index)
+                    if (nodes[j].Value > nodes[j + 1].Value)
                     {
                         //Swap thye element
                         //Store the next element in a temp variable

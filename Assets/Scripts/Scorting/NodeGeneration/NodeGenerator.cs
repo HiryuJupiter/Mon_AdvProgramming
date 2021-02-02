@@ -35,7 +35,7 @@ namespace Sorting
 
         public void ShuffleNodes()
         {
-            StartCoroutine(Shuffle());
+            StartCoroutine(Shuffle(Nodes));
         }
 
         private void Awake()
@@ -47,45 +47,119 @@ namespace Sorting
 
             //Create starting nodes
             perfectSequence = factory.CreateNodes(nodeCount);
-            Nodes = perfectSequence;
+            for (int i = 0; i < perfectSequence.Length; i++)
+            {
+                Nodes[i] = perfectSequence[i];
+            }
+            //Note you cannot do Nodes = perfectSquence
         }
 
-        private IEnumerator Shuffle()
+        private IEnumerator Shuffle(Node[] _nodes)
         {
+
+            Debug.Log(" ------ ");
+            //Initialize unshuffled indexes
             List<int> unshuffledIndexes = new List<int>();
-            for (int i = 0; i < nodeCount; i++)
+            for (int i = 0; i < Nodes.Length; i++)
             {
                 unshuffledIndexes.Add(i);
             }
-                
 
-            //for (int i = 0; i < nodeCount; i++)
+            for (int i = 0; i < nodeCount; i++)
+            {
+                //Select a random node from unshuffled nodes...
+                int randUnshuffledIndex = Random.Range(0, unshuffledIndexes.Count); //Randomly selected unshuffled index
+                Nodes[i] = _nodes[unshuffledIndexes[randUnshuffledIndex]];
+
+                //...and move it to the front 
+                Nodes[i].transform.SetSiblingIndex(i);
+
+                unshuffledIndexes.RemoveAt(randUnshuffledIndex);
+                yield return null;
+            }
+        }
+
+
+        private IEnumerator Shuffle()
+        {
+            Debug.Log(" ------ ");
+            //Initialize unshuffled indexes
+            List<int> unshuffledIndexes = new List<int>();
+            for (int i = 0; i < Nodes.Length; i++)
+            {
+                unshuffledIndexes.Add(i);
+
+                Debug.Log(" unshuffledIndexes added " + i);
+            }
+
+            for (int i = 0; i < nodeCount; i++)
+            {
+                //Select a random node from unshuffled nodes...
+                int randUnshuffledIndex = Random.Range(0, unshuffledIndexes.Count); //Randomly selected unshuffled index
+                Nodes[i] = perfectSequence[unshuffledIndexes[randUnshuffledIndex]];
+
+                //...and move it to the front 
+                Nodes[i].transform.SetSiblingIndex(i);
+
+                unshuffledIndexes.RemoveAt(randUnshuffledIndex);
+                yield return null;
+            }
+
+            //int frontIndex = 0;
+            //while (unshuffledIndexes.Count > 0)
             //{
-            //    int randIndex = Random.Range(0, tempIndexes.Count);
-            //    nodes[i] = generatedNodes[tempIndexes[randIndex]];
+            //    //Select a random node from unshuffled nodes...
+            //    int random = Random.Range(0, unshuffledIndexes.Count); //Randomly selected unshuffled index
+            //    int unshuffledIndex = unshuffledIndexes[random];
+            //    Nodes[frontIndex] = perfectSequence[unshuffledIndex];
 
-            //    nodes[i].transform.SetSiblingIndex(i);
+            //    //...and move it to the front 
+            //    Nodes[frontIndex].transform.SetSiblingIndex(frontIndex);
 
-            //    tempIndexes.RemoveAt(randIndex);
+            //    frontIndex++;
+
+            //    unshuffledIndexes.RemoveAt(random);
 
             //    yield return null;
             //}
+        }
 
-            int frontIndex = 0;
-            while (unshuffledIndexes.Count > 0)
+        void OnGUI()
+        {
+            for (int i = 0; i < Nodes.Length; i++)
             {
-                //Select a random node from the perfect sequence and move it to the front 
-                int randomUnshuffledIndex = Random.Range(0, unshuffledIndexes.Count);
-                Nodes[frontIndex] = perfectSequence[unshuffledIndexes[randomUnshuffledIndex]];
+                GUI.Label(new Rect(20, 20 + 20 * i, 200, 20), i + ": " + Nodes[i].Value);
+            }
 
-                Nodes[frontIndex].transform.SetSiblingIndex(frontIndex);
-
-                frontIndex++;
-
-                unshuffledIndexes.RemoveAt(randomUnshuffledIndex);
-
-                yield return null;
+            for (int i = 0; i < Nodes.Length; i++)
+            {
+                GUI.Label(new Rect(220, 20 + 20 * i, 200, 20), i + ": " + perfectSequence[i].Value);
             }
         }
     }
 }
+
+/*
+         private IEnumerator Shuffle(Node[] _nodes)
+        {
+            List<int> indexes = new List<int>();
+            for (int i = 0; i < nodeCount; i++)
+                indexes.Add(i);
+
+            int indexer = 0;
+            while (indexes.Count > 0)
+            {
+                int randIndex = Random.Range(0, indexes.Count);
+                Nodes[indexer] = _nodes[indexes[randIndex]];
+
+                Nodes[indexer].transform.SetSiblingIndex(indexer);
+
+                indexer++;
+
+                indexes.RemoveAt(randIndex);
+
+                yield return null;
+            }
+        }
+
+ */
