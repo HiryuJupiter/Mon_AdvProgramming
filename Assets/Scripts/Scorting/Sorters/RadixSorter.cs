@@ -19,7 +19,7 @@ namespace Sorting
         //catch, ctreating a new array every time
 
 
-        protected override IEnumerator Sort()
+        protected override IEnumerator SortAscending()
         {
             int nodeCount = nodes.Length;
             int i, j;
@@ -57,9 +57,12 @@ namespace Sorting
                 Array.Copy(temp, 0, nodes, nodes.Length - j, j);
 
                 //Simply visualization, not part of algorithm
-                StartFrame(0, 1);
+                HighlightNode(0, true);
+                HighlightNode(1, true);
+                UpdateNodes();
                 yield return null;
-                EndFrame(0, 1);
+                HighlightNode(0, false);
+                HighlightNode(1, false);
             }
         }
     }

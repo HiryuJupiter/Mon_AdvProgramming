@@ -1,13 +1,10 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
+using System.Collections;
 
 namespace Sorting
 {
-    public class SelectionSorter : BaseSorter
-    {
-        //Logic: run through the entire sequence, find the smallest number and bring it to the front.
-        //Then move onto the next smallest. 
-
+    public class QuickSort : BaseSorter
+{
         protected override IEnumerator SortAscending()
         {
             int nodeCount = nodes.Length;
@@ -20,7 +17,7 @@ namespace Sorting
                     if (nodes[j].Value < nodes[i].Value)
                     {
                         SwapNodes(i, j);
-                        
+
                         //Simply visualization, not part of algorithm
                         HighlightNode(i, true);
                         HighlightNode(j, true);

@@ -32,7 +32,7 @@ namespace Sorting
             return node;
         }
 
-        public Node[] CreateNodes (int _nodeCount)
+        public Node[] CreatePerfectSequence (int _nodeCount)
         {
             nodeCount = _nodeCount;
             scaleStep = canvasTransform.rect.height / _nodeCount;

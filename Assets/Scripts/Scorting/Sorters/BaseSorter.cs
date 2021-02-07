@@ -5,28 +5,46 @@ namespace Sorting
 {
     public abstract class BaseSorter : MonoBehaviour
     {
-        [SerializeField]
         protected NodeGenerator generator;
 
         protected Node[] nodes;
 
+        void Start()
+        {
+            generator = NodeGenerator.Instance;
+        }
+
         public void RunSorter()
         {
             nodes = generator.Nodes;
-            StartCoroutine(Sort());
+            StartCoroutine(SortAscending());
         }
 
-        protected abstract IEnumerator Sort();
+        protected abstract IEnumerator SortAscending();
 
-        protected void StartFrame(int _first, int _second)
+        protected void SwapNodes(int indexA, int indexB)
         {
-            generator.SetSelectedNodes(_first, _second, true);
+            Node _temp = nodes[indexA];
+            nodes[indexA] = nodes[indexB];
+            nodes[indexB] = _temp;
+        }
+
+        protected void SwapNodes(Node node1, Node node2)
+        {
+            Node _temp = node1;
+            node1 = node2;
+            node2 = _temp;
+        }
+
+        protected void HighlightNode(int _node, bool isHighlighted)
+        {
+            generator.HighlightNode(_node, isHighlighted);
             generator.SetNodes(nodes);
         }
 
-        protected void EndFrame(int _first, int _second)
+        protected void UpdateNodes ()
         {
-            generator.SetSelectedNodes(_first, _second, false);
+            generator.SetNodes(nodes);
         }
     }
 }

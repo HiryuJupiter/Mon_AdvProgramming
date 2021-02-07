@@ -1,50 +1,43 @@
 ﻿using System.Collections;
 using UnityEngine;
 
+//Bubble sort pushes bigger numbers back to the end, but it does not swap just once as a final step, but instead flips 2 adjacent ones every frame
+//[5,2,4,3,1], Compare 5 and 2, if 5 is greater then swap the 2
+//[2,3,1,4,5]
+
 namespace Sorting
 {
     public class BubbleSorter : BaseSorter
     {
-        //Need 2 loops
-        //[5,2,4,3,1], first compare 5 and 2, if 5 is greater then swap the 2, then 5 again, and p
-        //[2,3,1,4,5]
-        //[1,2,3,4,5]
-
-
-        protected override IEnumerator Sort()
+        protected override IEnumerator SortAscending()
         {
             int nodeCount = nodes.Length;
 
-            Node tempNode;
-
-            //-2 because we can't swap the final number out of the array.
-            for (int i = 0; i <= nodeCount - 2; i++)
+            //-1 because we can't swap the final number out of the array.
+            for (int i = 0; i < nodeCount - 1; i++)
             {
-                for (int j = 0; j <= nodeCount - 2; j++)
+                for (int j = 0; j < nodeCount - 1; j++)
                 {
-                    //If the current is a number greater than the one after?
+                    //If the current number is bigger than the next, then swap them
                     if (nodes[j].Value > nodes[j + 1].Value)
                     {
-                        //Swap thye element
-                        //Store the next element in a temp variable
-                        tempNode = nodes[j + 1];
+                        SwapNodes(j, j + 1);
+                        //Node _current = nodes[j];
+                        //nodes[j] = nodes[j + 1];
+                        //nodes[j + 1] = _current;
 
-                        //Set the next element to the current one
-                        nodes[j + 1] = nodes[j];
-
-                        nodes[j] = tempNode;
-
-
-                        //Simply visualization, not part of algorithm
-                        StartFrame(j, j + 1);
+                        //Visualization
+                        HighlightNode(j, true);
+                        HighlightNode(j + 1, true);
+                        UpdateNodes();
                         yield return null;
-                        EndFrame(j, j + 1);
-
+                        HighlightNode(j, false);
+                        HighlightNode(j + 1, false);
                     }
                 }
             }
 
-            
+
         }
     }
 }

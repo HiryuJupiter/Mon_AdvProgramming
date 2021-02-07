@@ -12,12 +12,13 @@ namespace Sorting
     [RequireComponent(typeof(NodeFactory))]
     public class NodeGenerator : MonoBehaviour
     {
+        public static NodeGenerator Instance;
+
         [SerializeField, Range(1, 250)]
         private int nodeCount = 10;
 
-        private Node[] perfectSequence;
-
         private NodeFactory factory;
+        private Node[] perfectSequence;
         public Node[] Nodes { get; private set; } //Current sequence of nodes
 
         public void SetNodes(Node[] _sorted)
@@ -27,26 +28,26 @@ namespace Sorting
                 Nodes[i].transform.SetAsFirstSibling();
         }
 
-        public void SetSelectedNodes(int _first, int _second, bool _selectedState)
+        public void HighlightNode(int index, bool isHighlighed)
         {
-            Nodes[_first].SetSelected(_selectedState);
-            Nodes[_second].SetSelected(_selectedState);
+            Nodes[index].SetSelected(isHighlighed);
         }
 
         public void ShuffleNodes()
         {
-            StartCoroutine(Shuffle(Nodes));
+            StartCoroutine(Shuffle(perfectSequence));
         }
 
         private void Awake()
         {
             //Initialize and reference
-            perfectSequence = new Node[nodeCount];
+            Instance = this;
             Nodes = new Node[nodeCount];
             factory = GetComponent<NodeFactory>();
 
-            //Create starting nodes
-            perfectSequence = factory.CreateNodes(nodeCount);
+            //Create a perfect sequence of nodes and set it to current
+            perfectSequence = new Node[nodeCount];
+            perfectSequence = factory.CreatePerfectSequence(nodeCount);
             for (int i = 0; i < perfectSequence.Length; i++)
             {
                 Nodes[i] = perfectSequence[i];
@@ -56,8 +57,6 @@ namespace Sorting
 
         private IEnumerator Shuffle(Node[] _nodes)
         {
-
-            Debug.Log(" ------ ");
             //Initialize unshuffled indexes
             List<int> unshuffledIndexes = new List<int>();
             for (int i = 0; i < Nodes.Length; i++)
@@ -67,75 +66,24 @@ namespace Sorting
 
             for (int i = 0; i < nodeCount; i++)
             {
-                //Select a random node from unshuffled nodes...
-                int randUnshuffledIndex = Random.Range(0, unshuffledIndexes.Count); //Randomly selected unshuffled index
-                Nodes[i] = _nodes[unshuffledIndexes[randUnshuffledIndex]];
-
-                //...and move it to the front 
+                //Select a random unshuffled node and move it to the front 
+                int randonUnshuffledIndex = Random.Range(0, unshuffledIndexes.Count);
+                Nodes[i] = _nodes[unshuffledIndexes[randonUnshuffledIndex]];
                 Nodes[i].transform.SetSiblingIndex(i);
 
-                unshuffledIndexes.RemoveAt(randUnshuffledIndex);
+                unshuffledIndexes.RemoveAt(randonUnshuffledIndex);
+
                 yield return null;
             }
         }
 
-
-        private IEnumerator Shuffle()
-        {
-            Debug.Log(" ------ ");
-            //Initialize unshuffled indexes
-            List<int> unshuffledIndexes = new List<int>();
-            for (int i = 0; i < Nodes.Length; i++)
-            {
-                unshuffledIndexes.Add(i);
-
-                Debug.Log(" unshuffledIndexes added " + i);
-            }
-
-            for (int i = 0; i < nodeCount; i++)
-            {
-                //Select a random node from unshuffled nodes...
-                int randUnshuffledIndex = Random.Range(0, unshuffledIndexes.Count); //Randomly selected unshuffled index
-                Nodes[i] = perfectSequence[unshuffledIndexes[randUnshuffledIndex]];
-
-                //...and move it to the front 
-                Nodes[i].transform.SetSiblingIndex(i);
-
-                unshuffledIndexes.RemoveAt(randUnshuffledIndex);
-                yield return null;
-            }
-
-            //int frontIndex = 0;
-            //while (unshuffledIndexes.Count > 0)
-            //{
-            //    //Select a random node from unshuffled nodes...
-            //    int random = Random.Range(0, unshuffledIndexes.Count); //Randomly selected unshuffled index
-            //    int unshuffledIndex = unshuffledIndexes[random];
-            //    Nodes[frontIndex] = perfectSequence[unshuffledIndex];
-
-            //    //...and move it to the front 
-            //    Nodes[frontIndex].transform.SetSiblingIndex(frontIndex);
-
-            //    frontIndex++;
-
-            //    unshuffledIndexes.RemoveAt(random);
-
-            //    yield return null;
-            //}
-        }
-
-        void OnGUI()
-        {
-            for (int i = 0; i < Nodes.Length; i++)
-            {
-                GUI.Label(new Rect(20, 20 + 20 * i, 200, 20), i + ": " + Nodes[i].Value);
-            }
-
-            for (int i = 0; i < Nodes.Length; i++)
-            {
-                GUI.Label(new Rect(220, 20 + 20 * i, 200, 20), i + ": " + perfectSequence[i].Value);
-            }
-        }
+        //void OnGUI()
+        //{
+        //    for (int i = 0; i < Nodes.Length; i++)
+        //    {
+        //        GUI.Label(new Rect(20, 20 + 20 * i, 200, 20), i + ": " + Nodes[i].Value);
+        //    }
+        //}
     }
 }
 
