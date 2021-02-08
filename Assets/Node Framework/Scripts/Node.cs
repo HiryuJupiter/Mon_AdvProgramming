@@ -115,6 +115,19 @@ namespace NodeFramework
         }
         #endregion
 
+        #region Click interaction
+        //private void OnMouseUpAsButton()
+        //{
+        //    Debug.Log("Clicked 2" + transform.name);
+        //}
+        private void OnMouseDown()
+        {
+            Debug.Log("Clicked on node " + transform.name);
+            NodeGenerator.HighLightNode(transform.name);
+        }
+        #endregion
+
+
         public void Setup(Node _parent, NodeType _type)
         {
             Type = _type;

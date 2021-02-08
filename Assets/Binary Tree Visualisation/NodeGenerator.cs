@@ -5,13 +5,23 @@ using NodeFramework;
 
 public class NodeGenerator : MonoBehaviour
 {
+    public static NodeGenerator Instance;
+
     [SerializeField, Range(1, 10)]
     private int nodeCount = 5;
     [SerializeField]
     private Vector2Int nodeRange = new Vector2Int(10, 100);
 
     private BinaryTree tree = new BinaryTree();
+    
+    public static void HighLightNode (string nodeName)
+    {
+        Node lookingFor;
+        Node root;
 
+
+        //tree.HighLightNode()
+    }
 
     private void OnValidate() //In Unity editor, this runs whenever you change the variable value.
     {
@@ -22,6 +32,11 @@ public class NodeGenerator : MonoBehaviour
         //nodeRange.x = Mathf.Clamp(nodeRange.x, 10, nodeRange.y - 1); //dragging too quickly causes problems
     }
 
+
+    void Awake ()
+    {
+        Instance = this;
+    }
 
     void Start()
     {
