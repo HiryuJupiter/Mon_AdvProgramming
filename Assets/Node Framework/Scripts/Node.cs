@@ -34,6 +34,10 @@ namespace NodeFramework
         private LineRenderer leftConnector;
         [SerializeField]
         private LineRenderer rightConnector;
+        [SerializeField]
+        private MeshRenderer meshRenderer;
+        [SerializeField]
+        private Color activateColor = Color.red;
 
         private float separation = 0;
         private int val = 0;
@@ -123,7 +127,16 @@ namespace NodeFramework
         private void OnMouseDown()
         {
             Debug.Log("Clicked on node " + transform.name);
-            NodeGenerator.HighLightNode(transform.name);
+            //NodeGen
+
+            NodeGenerator.tree.Traverse(NodeGenerator.tree.Root, this);
+
+            //erator.HighLightNode(transform.name);
+        }
+
+        public void Activate ()
+        {
+            meshRenderer.material.color = activateColor;
         }
         #endregion
 

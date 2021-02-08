@@ -12,16 +12,14 @@ public class NodeGenerator : MonoBehaviour
     [SerializeField]
     private Vector2Int nodeRange = new Vector2Int(10, 100);
 
-    private BinaryTree tree = new BinaryTree();
+    public static BinaryTree tree = new BinaryTree();
     
-    public static void HighLightNode (string nodeName)
-    {
-        Node lookingFor;
-        Node root;
+    //public static void HighLightNode (string nodeName)
+    //{
+    //    Instance.tree.HighLightNode(nodeName);
+    //}
 
 
-        //tree.HighLightNode()
-    }
 
     private void OnValidate() //In Unity editor, this runs whenever you change the variable value.
     {

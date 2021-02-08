@@ -9,7 +9,6 @@ public class BinaryTree : MonoBehaviour
 {
     public Node Root;
 
-
     public Node Insert(Node _root, Node _inserting)
     {
         //The root == null when we pass in the first node.
@@ -43,6 +42,23 @@ public class BinaryTree : MonoBehaviour
         return _root;
     }
 
+    public void Traverse(Node _root, Node _target)
+    {
+        if (_root == null)
+            return;
+
+        _root.Activate();
+
+        if (_target < _root)
+        {
+            Traverse(_root.Left, _target);
+        }
+        else if (_target > _root)
+        {
+            Traverse(_root.Right, _target);
+        }
+    }
+
     //Some connect funcitons
     private void ConnectNodes(Node _root)
     {
@@ -74,4 +90,30 @@ public class BinaryTree : MonoBehaviour
     {
 
     }
+
+    public void HighLightNode(string nodeName)
+    {
+
+    }
+
+    //Node FindNode (string nodeName)
+    //{
+    //    //Traverse through node
+
+    //}
+
+    //bool TryFindNode (Node node)
+    //{
+
+    //    if (node.Left != null)
+    //    {
+
+    //    }
+    //    else if (node.Right != null)
+    //    {
+
+    //    }
+
+    //    return false;
+    //}
 }

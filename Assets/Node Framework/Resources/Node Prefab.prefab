@@ -101,6 +101,8 @@ MonoBehaviour:
   text: {fileID: 765885706108171683}
   leftConnector: {fileID: 5734337147925998487}
   rightConnector: {fileID: 2375702256371027990}
+  meshRenderer: {fileID: 470566643331368626}
+  activateColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!58 &5821226571536262581
 CircleCollider2D:
   m_ObjectHideFlags: 0
