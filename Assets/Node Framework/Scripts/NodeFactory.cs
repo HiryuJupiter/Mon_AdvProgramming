@@ -10,6 +10,7 @@ namespace NodeFramework
 
         private static Node nodePrefab;
 
+        //This is to artist and designer proof this 
         public static void Setup(GameObject _gameObject)
         {
             if(factory != null)
