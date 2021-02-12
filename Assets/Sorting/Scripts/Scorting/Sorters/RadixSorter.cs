@@ -26,6 +26,93 @@ namespace Sorting
             int max = GetMaxNumber();
             for (int exp = 1; max / exp > 0; exp *= 10)
             {
+                yield return StartCoroutine(CountSort(exp));
+            }
+            yield return null;
+        }
+
+        IEnumerator CountSort (int exponents)
+        {
+            Node[] output = new Node[nodes.Length]; //The output array for the entire sorted array for this digit
+
+            //The 10 unit long count array starts off being 10 buckets for tracking occurances of 0~9 integers.
+            int[] count = new int[10];
+            for (int i = 0; i < 10; i++)
+            {
+                count[i] = 0;
+            }
+
+            //Record occurances
+            int GetBucketIndex(int nodeArrayIndex) => (nodes[nodeArrayIndex].Value / exponents) % 10;
+            
+            for (int i = 0; i < nodes.Length; i++)
+            {
+                count[GetBucketIndex(i)]++;
+            }
+
+            //Now, at this point, count ceases to record occurances of each digits. Instead, it is now recording
+            //the index position of the numbers that they will take on in the output. For example, if this was the
+            //bucket: [1] [3] [2] [1], so 1 occurance of 0, 3 occurances of 1, 2 occurances of 2, 1 occurances of 1.
+            //They will now record the number's index position in the final index:  [1] [4] [6] [1]. 
+            for (int i = 1; i < 10; i++)
+            {
+                count[i] += count[i - 1];
+            }
+
+            //Build the output array
+            for (int i = nodes.Length - 1; i >= 0; i--)
+            {
+                //We minus 1 because, say in the bucket [1] [4] [2], the first number with a 0 at the end, should appear 
+                //in the first place, but the first place is index 0, not 1, so we have to minus 1.
+                int bucketIndex = GetBucketIndex(i);
+                output[count[bucketIndex] - 1] = nodes[i];
+                count[bucketIndex]--;
+            }
+
+            for (int i = 0; i < nodes.Length; i++)
+            {
+                nodes[i] = output[i];
+
+                HighlightNodeBlue(i, true);
+                UpdateNodes();
+                yield return null;
+                HighlightNodeBlue(i, false);
+            }
+        }
+
+        int GetMaxNumber()
+        {
+            int max = nodes[0].Value;
+            for (int i = 1; i < nodes.Length; i++)
+            {
+                if (nodes[i].Value > max)
+                    max = nodes[i].Value;
+            }
+            return max;
+        }
+    }
+}
+
+//Complex version totally working
+/*
+  public class RadixSorter : BaseSorter
+    {
+        // [272, 45, 75, 81, 501, 2, 24, 66]
+        // It sorts by the smallest digits first, going up...
+        // Sorts by 2, 5, 5, 1, 1, 2, 4, 6
+        // The single digits. 
+        // 81, 501, 272, 2, 24, 45, 75, 66
+
+        // Next it looks at the second digits
+        // 2 becomes 02
+        // 501, 02, 24, 45, 66, 272, 75, 81, 
+
+        protected override IEnumerator SortAscending()
+        {
+            //Do counting sort for every digit.
+            int max = GetMaxNumber();
+            for (int exp = 1; max / exp > 0; exp *= 10)
+            {
                 CountSort(exp);
             }
             yield return null;
@@ -99,7 +186,7 @@ namespace Sorting
             return max.ToString().Length;
         }
     }
-}
+ */
 
 //Simplest version possible
 /*

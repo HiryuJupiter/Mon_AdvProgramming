@@ -48,6 +48,13 @@ namespace Sorting
                     //If ancestor is of higher value than current, then make ancester move up in index...
                     nodes[leftMostIndex + 1] = nodes[leftMostIndex];
 
+                    HighlightNodeRed(leftMostIndex, true);
+                    HighlightNodeBlue(leftMostIndex + 1, true);
+                    UpdateNodes();
+                    yield return null;
+                    HighlightNodeRed(leftMostIndex, false);
+                    HighlightNodeBlue(leftMostIndex + 1, false);
+
                     //...and decrement the leftMostIndex
                     leftMostIndex--;
                 }
@@ -56,11 +63,11 @@ namespace Sorting
                 //SwapNodes(currentNode, nodes[leftMostIndex + 1]);
 
                 //Simply visualization, not part of algorithm
-                HighlightNodeBlue(i, true);
+                HighlightNodeRed(i, true);
                 HighlightNodeBlue(leftMostIndex + 1, true);
                 UpdateNodes();
                 yield return null;
-                HighlightNodeBlue(i, false);
+                HighlightNodeRed(i, false);
                 HighlightNodeBlue(leftMostIndex + 1, false);
             }
         }

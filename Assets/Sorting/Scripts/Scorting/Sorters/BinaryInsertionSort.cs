@@ -33,22 +33,29 @@ namespace Sorting
                 }
 
                 //Option 1: Bubble the number to the left
-                for (int j = i; j > left; --j)
-                {
-                    SwapNodes(j, j - 1);
+                //for (int j = i; j > left; --j)
+                //{
+                //    SwapNodes(j, j - 1);
 
-                    HighlightNodeBlue(j, true);
-                    HighlightNodeBlue(j - 1, true);
+                //    HighlightNodeBlue(j, true);
+                //    HighlightNodeBlue(j - 1, true);
 
-                    UpdateNodes();
-                    yield return null;
-                    HighlightNodeBlue(j, false);
-                    HighlightNodeBlue(j - 1, false);
-                }
-                
+                //    UpdateNodes();
+                //    yield return null;
+                //    HighlightNodeBlue(j, false);
+                //    HighlightNodeBlue(j - 1, false);
+                //}
+
                 //Option 2: Shift the array to the right of the insertion point, this is faster
-                //System.Array.Copy(nodes, left, nodes, left + 1, i - left);
-                //nodes[left] = current;
+                System.Array.Copy(nodes, left, nodes, left + 1, i - left);
+                nodes[left] = current;
+
+                HighlightNodeRed(i, true);
+                HighlightNodeBlue(left, true);
+                UpdateNodes();
+                HighlightNodeRed(i, false);
+                HighlightNodeBlue(left, false);
+                yield return null;
             }
         }
     }
