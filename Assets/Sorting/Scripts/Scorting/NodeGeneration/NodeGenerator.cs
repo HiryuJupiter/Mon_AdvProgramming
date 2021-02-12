@@ -28,9 +28,14 @@ namespace Sorting
                 Nodes[i].transform.SetAsFirstSibling();
         }
 
-        public void HighlightNode(int index, bool isHighlighed)
+        public void HighlightNodeBlue(int index, bool isHighlighed)
         {
-            Nodes[index].SetSelected(isHighlighed);
+            Nodes[index].SetSelectedBlue(isHighlighed);
+        }
+
+        public void HighlightNodeRed(int index, bool isHighlighed)
+        {
+            Nodes[index].SetSelectedRed(isHighlighed);
         }
 
         public void ShuffleNodes()

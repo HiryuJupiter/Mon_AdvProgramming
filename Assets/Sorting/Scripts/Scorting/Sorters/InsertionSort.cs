@@ -56,12 +56,12 @@ namespace Sorting
                 //SwapNodes(currentNode, nodes[leftMostIndex + 1]);
 
                 //Simply visualization, not part of algorithm
-                HighlightNode(i, true);
-                HighlightNode(leftMostIndex + 1, true);
+                HighlightNodeBlue(i, true);
+                HighlightNodeBlue(leftMostIndex + 1, true);
                 UpdateNodes();
                 yield return null;
-                HighlightNode(i, false);
-                HighlightNode(leftMostIndex + 1, false);
+                HighlightNodeBlue(i, false);
+                HighlightNodeBlue(leftMostIndex + 1, false);
             }
         }
     }

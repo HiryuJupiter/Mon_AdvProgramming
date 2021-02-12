@@ -24,9 +24,17 @@ namespace Sorting
 
         protected void SwapNodes(int indexA, int indexB)
         {
-            Node _temp = nodes[indexA];
-            nodes[indexA] = nodes[indexB];
-            nodes[indexB] = _temp;
+            try
+            {
+                Node _temp = nodes[indexA];
+                nodes[indexA] = nodes[indexB];
+                nodes[indexB] = _temp;
+            }
+            catch
+            {
+
+                Debug.Log("Failed to swap nodes of indexes :" + indexA + " and " + indexB);
+            }
         }
 
         protected void SwapNodes(Node node1, Node node2)
@@ -36,15 +44,31 @@ namespace Sorting
             node2 = _temp;
         }
 
-        protected void HighlightNode(int _node, bool isHighlighted)
+        protected void HighlightNodeBlue(int _node, bool isHighlighted)
         {
-            generator.HighlightNode(_node, isHighlighted);
+            generator.HighlightNodeBlue(_node, isHighlighted);
+            generator.SetNodes(nodes);
+        }
+
+        protected void HighlightNodeRed(int _node, bool isHighlighted)
+        {
+            generator.HighlightNodeRed(_node, isHighlighted);
             generator.SetNodes(nodes);
         }
 
         protected void UpdateNodes ()
         {
             generator.SetNodes(nodes);
+        }
+
+        protected void PrintNodes(int low, int high)
+        {
+            string log = "";
+            for (int i = low; i <= high; i++)
+            {
+                log = log + "[" + i + "]  = " + nodes[i].Value + ", ";
+            }
+            Debug.Log(log);
         }
     }
 }

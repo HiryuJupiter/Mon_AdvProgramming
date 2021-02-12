@@ -31,9 +31,14 @@ namespace Sorting
             SetColor(_color);
         }
 
-        public void SetSelected(bool _isSelected)
+        public void SetSelectedBlue(bool _isSelected)
         {
             SetColor(_isSelected ? selectedColor : startColor);
+        }
+
+        public void SetSelectedRed (bool isSelected)
+        {
+            SetColor(isSelected ? Color.red : startColor);
         }
 
         void SetHeight (float _height) => layout.preferredHeight = _height;

@@ -22,12 +22,12 @@ namespace Sorting
                         SwapNodes(i, j);
                         
                         //Simply visualization, not part of algorithm
-                        HighlightNode(i, true);
-                        HighlightNode(j, true);
+                        HighlightNodeBlue(i, true);
+                        HighlightNodeBlue(j, true);
                         UpdateNodes();
                         yield return null;
-                        HighlightNode(i, false);
-                        HighlightNode(j, false);
+                        HighlightNodeBlue(i, false);
+                        HighlightNodeBlue(j, false);
                     }
                 }
             }

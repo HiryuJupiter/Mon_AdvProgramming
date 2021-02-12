@@ -27,12 +27,12 @@ namespace Sorting
                         //nodes[j + 1] = _current;
 
                         //Visualization
-                        HighlightNode(j, true);
-                        HighlightNode(j + 1, true);
+                        HighlightNodeBlue(j, true);
+                        HighlightNodeBlue(j + 1, true);
                         UpdateNodes();
                         yield return null;
-                        HighlightNode(j, false);
-                        HighlightNode(j + 1, false);
+                        HighlightNodeBlue(j, false);
+                        HighlightNodeBlue(j + 1, false);
                     }
                 }
             }
